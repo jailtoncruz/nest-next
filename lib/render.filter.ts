@@ -28,6 +28,12 @@ export class RenderFilter implements ExceptionFilter {
     const request = ctx.getRequest();
     const response = ctx.getResponse();
 
+    // This filter does not handle with error sourced reserved routes
+    if (request.url && this.service.checkIfReservedRoute(request.url))
+      return response
+        .status(err.getStatus())
+        .json(err.response);
+
     if (response && request) {
       const requestHandler = this.service.getRequestHandler();
       const errorRenderer = this.service.getErrorRenderer();
@@ -45,8 +51,7 @@ export class RenderFilter implements ExceptionFilter {
       const res: ServerResponse = isFastify ? response.res : response;
       const req: IncomingMessage = isFastify ? request.raw : request;
 
-      if (req.url && this.service.checkIfReservedRoute(req.url))
-        throw err
+
 
       if (!res.headersSent && req.url) {
         // check to see if the URL requested is an internal nextjs route
