@@ -45,6 +45,9 @@ export class RenderFilter implements ExceptionFilter {
       const res: ServerResponse = isFastify ? response.res : response;
       const req: IncomingMessage = isFastify ? request.raw : request;
 
+      if (req.url && this.service.checkIfReservedRoute(req.url))
+        throw err
+
       if (!res.headersSent && req.url) {
         // check to see if the URL requested is an internal nextjs route
         // if internal, the url is to some asset (ex /_next/*) that needs to be rendered by nextjs

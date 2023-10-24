@@ -34,9 +34,7 @@ export class RenderModule {
       ? nextConfig?.basePath
       : nextServer?.nextConfig?.basePath;
 
-    const dynamicRoutes = (nextServer?.dynamicRoutes as DynamicRoutes)?.map(
-      (route) => route.page,
-    );
+    const dynamicRoutes = (nextServer?.dynamicRoutes as DynamicRoutes)?.map((route) => route.page);
 
     const config: Partial<RendererConfig> = {
       basePath,

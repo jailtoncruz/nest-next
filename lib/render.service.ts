@@ -16,6 +16,8 @@ import { interpolateDynamicPath } from './vendor/next/interpolate-dynamic-path';
 import { isDynamicRoute } from './vendor/next/is-dynamic';
 
 export class RenderService {
+  private reservedRoutes: string[] = []
+
   public static init(
     config: Partial<RendererConfig>,
     handler: RequestHandler,
@@ -67,6 +69,13 @@ export class RenderService {
     if (config.dynamicRoutes?.length) {
       this.initializeDynamicRouteRegexes(config.dynamicRoutes);
     }
+    if (config.reservedRoutes?.length) {
+      this.reservedRoutes = config.reservedRoutes;
+    }
+  }
+
+  checkIfReservedRoute(url: string) {
+    return this.reservedRoutes.some(r => url.startsWith(r))
   }
 
   /**

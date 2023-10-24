@@ -35,6 +35,7 @@ export interface RendererConfig {
   dev: boolean;
   passthrough404?: boolean;
   dynamicRoutes?: string[];
+  reservedRoutes?: string[]
 }
 
 export interface ErrorResponse {
