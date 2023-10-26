@@ -1,6 +1,6 @@
 {
   "name": "@jailtoncruz/nest-next",
-  "version": "10.1.3",
+  "version": "10.1.4",
   "description": "Nestjs module to allow for server side rendering with Nextjs",
   "author": "Kyle McCarthy",
   "license": "MIT",
