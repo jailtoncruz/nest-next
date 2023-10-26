@@ -31,8 +31,8 @@ export class RenderFilter implements ExceptionFilter {
     // This filter does not handle with error sourced reserved routes
     if (request.url && this.service.checkIfReservedRoute(request.url))
       return response
-        .status(err?.getStatus() ?? 500)
-        .json(err?.response ?? { message: err?.message });
+        .status(err.getStatus ? err.getStatus() : 500)
+        .json(err.response ?? { message: err?.message });
 
     if (response && request) {
       const requestHandler = this.service.getRequestHandler();
